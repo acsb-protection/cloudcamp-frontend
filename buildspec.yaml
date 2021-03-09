@@ -1,0 +1,17 @@
+version 0.2
+
+phases:
+  install:
+    commands:
+      - npm 1 npm@latest -g
+      - pip install --upgrade pip
+      - pip install --upgrade awscli
+  pre_build:
+    commands:
+      - npm install
+  build:
+    commands:
+      - npm run build
+  post build:
+    commands:
+      - aws s3 sync ./build s3://www.actech.cf --cache-control max-age=3153600 --acl public-read
